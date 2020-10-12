@@ -28,7 +28,7 @@ class proxy():
     def json(cls, url, args, params):
         try:
             data = cls.fetch(url, args, params)
-            return data, 200, {"Content-Type": "text/json", "Cache-Control": "public, max-age=604800"}
+            return data, 200, {"Content-Type": "application/json", "Cache-Control": "public, max-age=604800"}
         except Exception as e:
             return str(e), 500, {"Content-Type": "text/plain"}
 
