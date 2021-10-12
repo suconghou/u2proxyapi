@@ -19,8 +19,9 @@ class proxy():
         params["key"] = cls.key
         argdict = args.to_dict()
         query = dict(argdict.items() + params.items())
-        if query.has_key('q'):
-            query['q'] = query.get('q').encode('utf-8').strip()
+        q = query.get('q')
+        if q:
+            query['q'] = q.encode('utf-8').strip()
         qs = urlencode(query)
         return req.fetch("{}?{}".format(url, qs))
 

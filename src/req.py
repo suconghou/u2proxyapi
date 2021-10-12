@@ -35,10 +35,12 @@ def fetch(url, ttl=86400):
     if v:
         return v
     res = urllib2.urlopen(url, None, 20)
+    if not res:
+        raise IOError("urlopen failed {}".format(url))
     code = res.getcode()
-    if code == 200:
-        data = res.read()
-        if data:
-            cache.set(url, data, ttl)
-        return data
-    raise IOError("HTTP Error {}".format(code))
+    if code != 200:
+        raise IOError("HTTP Error {}".format(code))
+    data = res.read()
+    if data:
+        cache.set(url, data, ttl)
+    return data
